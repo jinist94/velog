@@ -2,6 +2,7 @@ import { gql, useMutation } from "@apollo/client";
 import { FormEvent, useCallback, useState } from "react";
 import nookies from "nookies";
 import { useRouter } from "next/router";
+import { NextPageContext } from "next";
 
 // Form 구성 정의
 interface FormElements extends HTMLFormElement {
@@ -17,6 +18,19 @@ const REGISTER = gql`
     }
   }
 `;
+
+export const getServerSideProps = async (ctx: NextPageContext) => {
+  const { token } = nookies.get(ctx);
+  if (token) {
+    return {
+      redirect: {
+        destination: "/",
+      },
+    };
+  }
+
+  return { props: {} };
+};
 
 const SignUp = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -41,6 +55,7 @@ const SignUp = () => {
     },
     [router, register]
   );
+
   return (
     <div>
       <h1>Sign Up</h1>
