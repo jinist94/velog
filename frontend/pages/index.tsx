@@ -2,8 +2,8 @@ import { useQuery, gql } from "@apollo/client";
 import Link from "next/link";
 import NextLinkComposed from "../components/NextLinkComposed";
 
-const GET_POST = gql`
-  query GetPost {
+const GET_POSTS = gql`
+  query GetPosts {
     posts(sort: ["createdAt:desc"]) {
       data {
         id
@@ -29,7 +29,7 @@ interface Prop {
 }
 
 const Home = ({ token }: Prop) => {
-  const { data, loading, error } = useQuery(GET_POST);
+  const { data, loading, error } = useQuery(GET_POSTS);
 
   return (
     <div>

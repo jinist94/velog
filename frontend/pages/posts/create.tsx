@@ -30,9 +30,8 @@ const CreatePost = () => {
       const elements: FormElements = e.currentTarget;
       const title = elements.titleInput.value;
       const body = elements.body.value;
-      await createPost({ variables: { title, body } });
+      await createPost({ refetchQueries: ["GetPosts"], variables: { title, body } });
       setLoading(false);
-      /* 페이지 이동 시 추가된 post가 보이지 않는 오류 있음 */
       router.push("/");
     },
     [createPost, router]
