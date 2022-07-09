@@ -78,7 +78,7 @@ const PostDetail = ({ me }: Props) => {
           <h1>{data.post.data.attributes.title}</h1>
           <p>{data.post.data.attributes.body}</p>
           <span>{data.post.data.attributes.user.data.attributes.email}</span>
-          <PostComments postId={router.query.id as string} />
+          <PostComments postId={router.query.id as string} me={me} />
         </>
       )}
     </div>
