@@ -4,6 +4,7 @@ import type { AppContext, AppProps } from "next/app";
 import nookies from "nookies";
 import Header from "../components/Header";
 import { User } from "../interface";
+import "../styles/reset.css";
 
 const httpLink = createHttpLink({
   uri: "http://localhost:1337/graphql",
