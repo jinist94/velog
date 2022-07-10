@@ -27,6 +27,7 @@ const Text = ({ children, paragraph, size = "sm", block, bold }: TextProps) => {
     fontWeight: bold ? "bold" : "normal",
     lineHeight: "1.5em",
   };
+
   const Tag = paragraph ? "p" : "span";
   return <Tag style={{ ...fontStyle }}>{children}</Tag>;
 };
