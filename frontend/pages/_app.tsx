@@ -5,6 +5,7 @@ import nookies from "nookies";
 import Header from "../components/Header";
 import { User } from "../interface";
 import "../styles/reset.css";
+import "../styles/app.css";
 
 const httpLink = createHttpLink({
   uri: "http://localhost:1337/graphql",
