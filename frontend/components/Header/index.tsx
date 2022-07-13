@@ -2,6 +2,8 @@ import { useCallback } from "react";
 import nookies from "nookies";
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
+import NextLinkComposed from "../NextLinkComposed";
+import Link from "next/link";
 interface Props {
   token?: string;
 }
@@ -14,12 +16,19 @@ const Header = ({ token }: Props) => {
   }, []);
   return (
     <Inner>
-      <div>Velog</div>
+      <Link href="/" passHref>
+        <a>Velog</a>
+      </Link>
       <div>
         <button>다크모드</button>
         <button>검색</button>
         {token ? (
-          <button onClick={handleLogout}>Logout</button>
+          <>
+            <Link href="/posts/create" passHref>
+              <NewPostAnchor>새 글 작성</NewPostAnchor>
+            </Link>
+            <button onClick={handleLogout}>Logout</button>
+          </>
         ) : (
           <>
             <LoginButton onClick={() => router.push("/login")}>로그인</LoginButton>
@@ -47,4 +56,12 @@ const LoginButton = styled.button`
   color: white;
   border-radius: 20px;
   padding: 3px 12px;
+`;
+
+const NewPostAnchor = styled.a`
+  border: 1px solid black;
+  padding: 4px 16px;
+  border-radius: 30px;
+  font-weight: bold;
+  margin: 0 4px;
 `;

@@ -37,7 +37,7 @@ const Home = ({ token }: Prop) => {
   return (
     <PostContainer>
       <Global styles={BodyStyle} />
-      {token && <NextLinkComposed href="/posts/create">글쓰기</NextLinkComposed>}
+
       {data?.posts.data.map((post: any) => (
         <Link key={post.id} href="/posts/[id]" as={`/posts/${post.id}`}>
           <PostCard>
