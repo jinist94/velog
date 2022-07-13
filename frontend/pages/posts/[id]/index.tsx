@@ -1,6 +1,8 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
+import styled from "@emotion/styled";
 import { useRouter } from "next/router";
 import { FormEvent, useCallback } from "react";
+import Text from "../../../components/basic/Text";
 import NextLinkComposed from "../../../components/NextLinkComposed";
 import PostComments from "../../../components/PostComments";
 import { User } from "../../../interface";
@@ -60,29 +62,57 @@ const PostDetail = ({ me }: Props) => {
   }, [deletePost, router]);
 
   return (
-    <div>
+    <Container>
       {loading ? (
         "loading..."
       ) : (
         <>
-          {me?.id === data.post.data.attributes.user.data.id ? (
-            <>
-              <button onClick={handleDelete}>삭제</button>
-              <NextLinkComposed href="/posts/[id]/edit" as={`/posts/${router.query.id}/edit`}>
-                수정
-              </NextLinkComposed>
-            </>
-          ) : (
-            ""
-          )}
-          <h1>{data.post.data.attributes.title}</h1>
-          <p>{data.post.data.attributes.body}</p>
-          <span>{data.post.data.attributes.user.data.attributes.email}</span>
+          <PostTitle>{data.post.data.attributes.title}</PostTitle>
+          <PostInfo>
+            <Text size={16}>{data.post.data.attributes.user.data.attributes.email}</Text>
+            {me?.id === data.post.data.attributes.user.data.id && (
+              <PostButtons>
+                <NextLinkComposed href="/posts/[id]/edit" as={`/posts/${router.query.id}/edit`}>
+                  수정
+                </NextLinkComposed>
+                <button onClick={handleDelete}>삭제</button>
+              </PostButtons>
+            )}
+          </PostInfo>
+
+          <PostContent>
+            <p>{data.post.data.attributes.body}</p>
+          </PostContent>
           <PostComments postId={router.query.id as string} me={me} />
         </>
       )}
-    </div>
+    </Container>
   );
 };
 
 export default PostDetail;
+
+const Container = styled.div`
+  width: 768px;
+  margin: 0 auto;
+`;
+
+const PostTitle = styled.h1`
+  font-weight: bold;
+  color: #212529;
+  font-size: 48px;
+  margin-bottom: 2rem;
+`;
+
+const PostContent = styled.div`
+  margin: 48px 0;
+`;
+
+const PostInfo = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const PostButtons = styled.div`
+  color: #868e96;
+`;

@@ -1,4 +1,5 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
+import styled from "@emotion/styled";
 import { FormEvent, useCallback } from "react";
 import { User } from "../../interface";
 
@@ -114,11 +115,13 @@ const PostComments = ({ postId, me }: Props) => {
 
   return (
     <div>
-      <h2>comment</h2>
-      <form onSubmit={onCreateComment}>
-        <input placeholder="Comment" name="comment" />
-        <button>등록</button>
-      </form>
+      <CommentCount>{data?.comments.data.length}개의 댓글</CommentCount>
+      <CommentAddForm onSubmit={onCreateComment}>
+        <CommentAddInput placeholder="댓글을 작성하세요" name="comment" />
+        <ButtonWrapper>
+          <CommentAddButton>댓글 작성</CommentAddButton>
+        </ButtonWrapper>
+      </CommentAddForm>
       <div>
         {data?.comments.data.map((comment: any) => (
           <div key={comment.id}>
@@ -136,5 +139,36 @@ const PostComments = ({ postId, me }: Props) => {
     </div>
   );
 };
+
+const CommentCount = styled.h4`
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+`;
+
+const CommentAddForm = styled.form``;
+const CommentAddInput = styled.input`
+  font-size: 16px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 20px;
+  border: 1px solid #f1f3f5;
+`;
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 24px;
+`;
+
+const CommentAddButton = styled.button`
+  background-color: #12b886;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  padding: 6px 20px;
+  border-radius: 4px;
+`;
 
 export default PostComments;

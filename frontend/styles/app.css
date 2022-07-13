@@ -1,4 +1,12 @@
 button {
   background-color: transparent;
   border: 0;
+  cursor: pointer;
+  font-size: inherit;
+  color: inherit;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
 }
