@@ -65,7 +65,7 @@ const PostContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  max-width: 1728px;
+  max-width: 1375px;
   margin: 0 auto;
 `;
 
