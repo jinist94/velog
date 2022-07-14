@@ -1,16 +1,7 @@
 import { gql, useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
 import { FormEvent, useCallback, useState } from "react";
-
-const CREATE_POST = gql`
-  mutation CreatePost($title: String!, $body: String!) {
-    createPost(data: { title: $title, body: $body }) {
-      data {
-        id
-      }
-    }
-  }
-`;
+import { CREATE_POST } from "../../api/post";
 
 interface FormElements extends HTMLFormElement {
   titleInput: HTMLInputElement;

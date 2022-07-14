@@ -1,39 +1,7 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import { FormEvent, useCallback, useState } from "react";
-
-const GET_POST = gql`
-  query GetPost($id: ID!) {
-    post(id: $id) {
-      data {
-        id
-        attributes {
-          title
-          body
-          user {
-            data {
-              id
-              attributes {
-                username
-                email
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-`;
-
-const UPDATE_POST = gql`
-  mutation UpdatePost($id: ID!, $title: String!, $body: String!) {
-    updatePost(id: $id, data: { title: $title, body: $body }) {
-      data {
-        id
-      }
-    }
-  }
-`;
+import { GET_POST, UPDATE_POST } from "../../../api/post";
 
 interface FormElements extends HTMLFormElement {
   titleInput: HTMLInputElement;

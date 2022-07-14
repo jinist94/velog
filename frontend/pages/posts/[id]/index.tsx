@@ -6,43 +6,11 @@ import Text from "../../../components/basic/Text";
 import NextLinkComposed from "../../../components/NextLinkComposed";
 import PostComments from "../../../components/PostComments";
 import { User } from "../../../interface";
+import { GET_POST, DELETE_POST } from "../../../api/post";
 
 interface Props {
   me?: User;
 }
-
-const GET_POST = gql`
-  query GetPost($id: ID!) {
-    post(id: $id) {
-      data {
-        id
-        attributes {
-          title
-          body
-          user {
-            data {
-              id
-              attributes {
-                username
-                email
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-`;
-
-const DELETE_POST = gql`
-  mutation DeletePost($id: ID!) {
-    deletePost(id: $id) {
-      data {
-        id
-      }
-    }
-  }
-`;
 
 const PostDetail = ({ me }: Props) => {
   const router = useRouter();
