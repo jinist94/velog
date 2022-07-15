@@ -1,25 +1,62 @@
-import { useCallback } from "react";
+import { ChangeEvent, useCallback, useState } from "react";
 import nookies from "nookies";
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
 import NextLinkComposed from "../NextLinkComposed";
 import Link from "next/link";
+import { gql, useMutation } from "@apollo/client";
 interface Props {
   token?: string;
 }
 
+const UPDATE_POST = gql`
+  mutation UpdatePost($id: ID!, $title: String!, $body: String!) {
+    updatePost(id: $id, data: { title: $title, body: $body }) {
+      data {
+        id
+      }
+    }
+  }
+`;
+
+const UPLOAD_IMAGE = gql`
+  mutation Upload($file: Upload!) {
+    upload(file: $file) {
+      data {
+        id
+        attributes {
+          name
+        }
+      }
+    }
+  }
+`;
+
 const Header = ({ token }: Props) => {
   const router = useRouter();
+  const [uploadImage] = useMutation(UPLOAD_IMAGE);
+  const [image, setImage] = useState<File | null>(null);
   const handleLogout = useCallback(() => {
     nookies.destroy(null, "token", { path: "/" });
     location.href = "/";
   }, []);
+
+  const onImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      console.log(e.target.files[0]);
+      // setImage(e.target.files[0]);
+      uploadImage({ variables: { file: e.target.files[0] } });
+    }
+  };
   return (
     <Inner>
       <Link href="/" passHref>
         <a>Velog</a>
       </Link>
       <div>
+        <div>
+          <input type="file" name="files" onChange={onImageChange} alt="image" />
+        </div>
         <button>다크모드</button>
         <button>검색</button>
         {token ? (

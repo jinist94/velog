@@ -7,7 +7,9 @@ import { User } from "../interface";
 import "../styles/reset.css";
 import "../styles/app.css";
 
-const httpLink = createHttpLink({
+import { createUploadLink } from "apollo-upload-client";
+
+const httpLink = createUploadLink({
   uri: "http://localhost:1337/graphql",
 });
 

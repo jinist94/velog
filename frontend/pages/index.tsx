@@ -4,28 +4,7 @@ import styled from "@emotion/styled";
 import Link from "next/link";
 import Text from "../components/basic/Text";
 import NextLinkComposed from "../components/NextLinkComposed";
-
-const GET_POSTS = gql`
-  query GetPosts {
-    posts(sort: ["createdAt:desc"]) {
-      data {
-        id
-        attributes {
-          title
-          body
-          createdAt
-          user {
-            data {
-              attributes {
-                username
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-`;
+import { GET_POSTS } from "../api/post";
 
 interface Prop {
   token?: string;
