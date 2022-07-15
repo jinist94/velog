@@ -2,9 +2,9 @@ import { useQuery, gql } from "@apollo/client";
 import { css, Global } from "@emotion/react";
 import styled from "@emotion/styled";
 import Link from "next/link";
-import Text from "../components/basic/Text";
-import NextLinkComposed from "../components/NextLinkComposed";
-import { GET_POSTS } from "../api/post";
+import Text from "components/basic/Text";
+import NextLinkComposed from "components/NextLinkComposed";
+import { GET_POSTS } from "api/post";
 
 interface Prop {
   token?: string;

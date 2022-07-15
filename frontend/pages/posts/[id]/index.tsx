@@ -2,11 +2,11 @@ import { gql, useMutation, useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { useRouter } from "next/router";
 import { FormEvent, useCallback } from "react";
-import Text from "../../../components/basic/Text";
-import NextLinkComposed from "../../../components/NextLinkComposed";
-import PostComments from "../../../components/PostComments";
-import { User } from "../../../interface";
-import { GET_POST, DELETE_POST } from "../../../api/post";
+import Text from "components/basic/Text";
+import NextLinkComposed from "components/NextLinkComposed";
+import PostComments from "components/PostComments";
+import { User } from "interface";
+import { GET_POST, DELETE_POST } from "api/post";
 
 interface Props {
   me?: User;

@@ -2,10 +2,10 @@ import { ApolloClient, ApolloProvider, createHttpLink, gql, InMemoryCache } from
 import { setContext } from "@apollo/client/link/context";
 import type { AppContext, AppProps } from "next/app";
 import nookies from "nookies";
-import Header from "../components/Header";
-import { User } from "../interface";
-import "../styles/reset.css";
-import "../styles/app.css";
+import Header from "components/Header";
+import { User } from "interface";
+import "styles/reset.css";
+import "styles/app.css";
 
 import { createUploadLink } from "apollo-upload-client";
 
