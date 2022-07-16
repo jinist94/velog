@@ -1,5 +1,6 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
+import { useRouter } from "next/router";
 import { FormEvent, useCallback } from "react";
 import { User } from "../../interface";
 
@@ -76,6 +77,7 @@ const PostComments = ({ postId, me }: Props) => {
   const { data, loading } = useQuery(GET_COMMENTS, {
     variables: { postId },
   });
+  const router = useRouter();
 
   const [createComment] = useMutation(CREATE_COMMENT);
   const [updateComment] = useMutation(UPDATE_COMMENT);
@@ -84,6 +86,12 @@ const PostComments = ({ postId, me }: Props) => {
   const onCreateComment = useCallback(
     async (e: FormEvent<CommentFormElements>) => {
       e.preventDefault();
+      if (!me) {
+        alert("로그인이 필요한 서비스입니다.");
+        router.push("/login");
+        return;
+      }
+
       const elements = e.currentTarget;
       const comment = elements.comment.value;
 
