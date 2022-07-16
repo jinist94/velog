@@ -130,20 +130,24 @@ const PostComments = ({ postId, me }: Props) => {
           <CommentAddButton>댓글 작성</CommentAddButton>
         </ButtonWrapper>
       </CommentAddForm>
-      <div>
+      <CommentList>
         {data?.comments.data.map((comment: any) => (
-          <div key={comment.id}>
+          <CommentItem key={comment.id}>
+            <UserInfo>
+              <Username>{comment.attributes.user.data.attributes.username}</Username>
+              <CommentButtons>
+                {me?.id === comment.attributes.user.data.id && (
+                  <div>
+                    <button onClick={() => onUpdateComment(comment.id)}>수정</button>
+                    <button onClick={() => onDeleteComment(comment.id)}>삭제</button>
+                  </div>
+                )}
+              </CommentButtons>
+            </UserInfo>
             <p>{comment.attributes.body}</p>
-            <span>{comment.attributes.user.data.attributes.username}</span>
-            {me?.id === comment.attributes.user.data.id && (
-              <div>
-                <button onClick={() => onUpdateComment(comment.id)}>수정</button>
-                <button onClick={() => onDeleteComment(comment.id)}>삭제</button>
-              </div>
-            )}
-          </div>
+          </CommentItem>
         ))}
-      </div>
+      </CommentList>
     </div>
   );
 };
@@ -179,4 +183,24 @@ const CommentAddButton = styled.button`
   border-radius: 4px;
 `;
 
+const CommentList = styled.ul`
+  margin-top: 30px;
+`;
+const CommentItem = styled.li`
+  padding: 30px 0;
+  border-bottom: 1px solid #f1f3f5;
+`;
+const Username = styled.span`
+  font-size: 18px;
+  font-weight: bold;
+`;
+const UserInfo = styled.div`
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const CommentButtons = styled.div`
+  color: #868e96;
+`;
 export default PostComments;
