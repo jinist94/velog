@@ -8,15 +8,17 @@ type buttonType = "primary" | "black" | "default";
 
 interface Props {
   children: ReactNode;
-  onClick: () => void;
+  onClick?: () => void;
+  width?: number;
+  height?: number;
   type?: "button" | "submit" | "reset";
   styleType?: buttonType;
   color?: string;
   round?: "circle" | number;
   style?: any;
   size?: "xs" | "sm" | "md" | "lg" | "xl";
-  loading?: boolean;
   block?: boolean;
+  disabled?: boolean;
 }
 
 interface ButtonProps {
@@ -36,8 +38,10 @@ const theme: { [key: string]: SerializedStyles } = {
     border: 1px solid #ddd;
   `,
   primary: css`
-    background-color: #1890ff;
+    background-color: #12b886;
+    border-radius: 5px;
     color: white;
+    font-weight: bold;
   `,
   black: css`
     background-color: black;
@@ -51,25 +55,26 @@ const StyledButton = styled.button<ButtonProps>`
   outline: 0;
   border: 0;
   cursor: pointer;
-
   ${({ styleType }) => styleType && theme[styleType]}
 `;
 
 const Button = ({
   children,
   onClick,
+  width,
+  height,
   type,
   styleType = "default",
-  round,
   size = "sm",
-  loading,
   block,
   style,
+  disabled,
 }: Props) => {
   const buttonStyle = {
-    borderRadius: round === "circle" ? "50%" : typeof round === "number" ? round : 0,
     display: block && "block",
-    fontSizes: fontSizes[size],
+    fontSize: fontSizes[size],
+    width,
+    height,
   };
 
   return (
@@ -78,7 +83,7 @@ const Button = ({
       type={type}
       styleType={styleType}
       onClick={onClick}
-      disabled={loading}
+      disabled={disabled}
     >
       {children}
     </StyledButton>
