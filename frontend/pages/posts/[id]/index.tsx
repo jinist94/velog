@@ -3,10 +3,9 @@ import styled from "@emotion/styled";
 import { useRouter } from "next/router";
 import { FormEvent, useCallback } from "react";
 import Text from "components/basic/Text";
-import NextLinkComposed from "components/NextLinkComposed";
-import PostComments from "components/PostComments";
 import { User } from "interface";
 import { GET_POST, DELETE_POST } from "api/post";
+import { PageContainer, PostComments, NextLinkComposed } from "components";
 
 interface Props {
   me?: User;
@@ -30,7 +29,7 @@ const PostDetail = ({ me }: Props) => {
   }, [deletePost, router]);
 
   return (
-    <Container>
+    <PageContainer>
       {loading ? (
         "loading..."
       ) : (
@@ -54,7 +53,7 @@ const PostDetail = ({ me }: Props) => {
           <PostComments postId={router.query.id as string} me={me} />
         </>
       )}
-    </Container>
+    </PageContainer>
   );
 };
 
