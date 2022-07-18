@@ -2,6 +2,8 @@ import { gql, useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import { FormEvent, useCallback, useState } from "react";
 import { GET_POST, UPDATE_POST } from "api/post";
+import PostEditForm from "components/PostEditForm";
+import { PageContainer } from "components";
 
 interface FormElements extends HTMLFormElement {
   titleInput: HTMLInputElement;
@@ -29,15 +31,19 @@ const EditPost = () => {
     [updatePost, router]
   );
 
+  if (loading) {
+    return;
+  }
   return (
-    <div>
-      <h1>Create Post</h1>
-      <form onSubmit={handleSubmit}>
-        <input placeholder="Title" defaultValue={data.post.data.attributes.title} name="titleInput" />
-        <textarea placeholder="Body" defaultValue={data.post.data.attributes.body} name="body" />
-        <button disabled={loading}>수정</button>
-      </form>
-    </div>
+    <PageContainer>
+      <PostEditForm
+        onSubmit={handleSubmit}
+        buttonName="수정"
+        loading={loading}
+        defaultTitle={data.post.data.attributes.title}
+        defaultBody={data.post.data.attributes.body}
+      />
+    </PageContainer>
   );
 };
 

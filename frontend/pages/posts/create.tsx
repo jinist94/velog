@@ -5,6 +5,8 @@ import { CREATE_POST } from "api/post";
 import { PageContainer } from "components";
 import styled from "@emotion/styled";
 import Button from "components/basic/Button";
+import PostEditTitle from "components/PostEditTitle/PostEditTitle";
+import PostEditForm from "components/PostEditForm";
 
 interface FormElements extends HTMLFormElement {
   titleInput: HTMLInputElement;
@@ -24,6 +26,7 @@ const CreatePost = () => {
       const elements: FormElements = e.currentTarget;
       const title = elements.titleInput.value;
       const body = elements.body.value;
+      console.log();
       await createPost({ refetchQueries: ["GetPosts"], variables: { title, body } });
       setLoading(false);
       router.push("/");
@@ -33,15 +36,7 @@ const CreatePost = () => {
   return (
     <PageContainer>
       <Container>
-        <Form onSubmit={handleSubmit}>
-          <input placeholder="제목을 입력하세요" name="titleInput" />
-          <TextareaWrapper>
-            <textarea placeholder="당신의 이야기를 적어보세요.." name="body" />
-          </TextareaWrapper>
-          <Button size="lg" disabled={loading} styleType="primary" style={{ paddingLeft: 20, paddingRight: 20 }}>
-            출간하기
-          </Button>
-        </Form>
+        <PostEditForm onSubmit={handleSubmit} buttonName="출간하기" loading={loading} />
       </Container>
     </PageContainer>
   );
