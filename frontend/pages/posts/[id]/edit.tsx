@@ -1,9 +1,8 @@
-import { gql, useMutation, useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import { FormEvent, useCallback, useState } from "react";
 import { GET_POST, UPDATE_POST } from "api/post";
-import PostEditForm from "components/PostEditForm";
-import { PageContainer } from "components";
+import { PageContainer, PostEditForm } from "components";
 
 interface FormElements extends HTMLFormElement {
   titleInput: HTMLInputElement;

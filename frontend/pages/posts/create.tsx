@@ -1,12 +1,9 @@
-import { gql, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
 import { FormEvent, useCallback, useState } from "react";
 import { CREATE_POST } from "api/post";
-import { PageContainer } from "components";
+import { PageContainer, PostEditForm } from "components";
 import styled from "@emotion/styled";
-import Button from "components/basic/Button";
-import PostEditTitle from "components/PostEditTitle/PostEditTitle";
-import PostEditForm from "components/PostEditForm";
 
 interface FormElements extends HTMLFormElement {
   titleInput: HTMLInputElement;
@@ -47,25 +44,3 @@ export default CreatePost;
 const Container = styled.div`
   display: flex;
 `;
-const Form = styled.form`
-  width: 100%;
-
-  input {
-    width: 100%;
-    font-size: 40px;
-    font-weight: bold;
-    line-height: 1.5;
-    outline: none;
-    border: none;
-  }
-
-  textarea {
-    width: 100%;
-    margin: 20px 0;
-    font-size: 18px;
-    outline: none;
-    border: none;
-  }
-`;
-
-const TextareaWrapper = styled.div``;
