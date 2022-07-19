@@ -1,6 +1,7 @@
 import { useMutation, useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { CREATE_COMMENT, DELETE_COMMENT, GET_COMMENTS, UPDATE_COMMENT } from "api/comments";
+import Button from "components/basic/Button";
 import { useRouter } from "next/router";
 import { FormEvent, useCallback } from "react";
 import { User } from "../../interface";
@@ -68,7 +69,9 @@ const PostComments = ({ postId, me }: Props) => {
       <CommentAddForm onSubmit={onCreateComment}>
         <CommentAddInput placeholder="댓글을 작성하세요" name="comment" />
         <ButtonWrapper>
-          <CommentAddButton>댓글 작성</CommentAddButton>
+          <Button styleType="primary" size="md" disabled={loading}>
+            댓글 작성
+          </Button>
         </ButtonWrapper>
       </CommentAddForm>
       <CommentList>
@@ -113,15 +116,6 @@ const ButtonWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
   margin-top: 24px;
-`;
-
-const CommentAddButton = styled.button`
-  background-color: #12b886;
-  font-size: 16px;
-  font-weight: bold;
-  color: white;
-  padding: 6px 20px;
-  border-radius: 4px;
 `;
 
 const CommentList = styled.ul`
