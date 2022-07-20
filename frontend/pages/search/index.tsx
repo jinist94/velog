@@ -1,16 +1,29 @@
+import { useLazyQuery } from "@apollo/client";
 import styled from "@emotion/styled";
+import { SEARCH_POST } from "api/post";
 import { PageContainer } from "components";
-import { FormEvent } from "react";
+import { FormEvent, useState } from "react";
 
 const SearchPage = () => {
-  const onSubmit = (e: FormEvent) => {
+  const [loadPosts] = useLazyQuery(SEARCH_POST);
+  const [searchResults, setSearchResults] = useState([]);
+
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const elements: HTMLFormElement = e.currentTarget;
+    const keyword = elements.search.value;
+    const result = await loadPosts({ variables: { keyword } });
+    setSearchResults(result.data.posts.data);
+    console.log(result.data.posts.data);
   };
   return (
     <PageContainer style={{ marginTop: 50 }}>
       <SearchForm onSubmit={onSubmit}>
-        <SearchInput placeholder="검색어를 입력하세요" />
+        <SearchInput placeholder="검색어를 입력하세요" name="search" />
       </SearchForm>
+      {searchResults.map((post: any) => (
+        <div key={post.id}>{post.attributes.title}</div>
+      ))}
     </PageContainer>
   );
 };

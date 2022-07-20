@@ -74,3 +74,25 @@ export const DELETE_POST = gql`
     }
   }
 `;
+
+export const SEARCH_POST = gql`
+  query SearchPost($keyword: String!) {
+    posts(filters: { title: { contains: $keyword } }) {
+      data {
+        id
+        attributes {
+          title
+          body
+          createdAt
+          user {
+            data {
+              attributes {
+                username
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
